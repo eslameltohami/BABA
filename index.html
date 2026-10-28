@@ -83,7 +83,7 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <div class="card">🔑 رقم سري جديد<input id="np" inputmode="numeric" maxlength="6"><button class="b" onclick="if($('#np').value.length>=4){S.pin=$('#np').value;save();alert('تم')}">تغيير</button></div>
 <div class="card">📺 مفتاح يوتيوب (لتشغيل البحث)<input id="ky" dir="ltr" placeholder="AIza..."><button class="b" onclick="navigator.clipboard.readText().then(t=>$('#ky').value=t.trim()).catch(()=>alert('الصق المفتاح يدوي'))">📋 لصق</button> <button class="b" onclick="S.key=$('#ky').value.trim();save();alert(S.key.startsWith('AIza')?'تم ✅ جرّب البحث':'تم، بس المفتاح عادة بيبدأ بـ AIza')">حفظ</button><small>مجاني من console.cloud.google.com ← YouTube Data API v3 ← Credentials ← API key</small></div>
 <div class="card">➕ إضافة فيديو (رابط يوتيوب أو mp4)<input id="vt" placeholder="اسم الفيديو"><input id="vu" placeholder="الرابط" dir="ltr"><button class="b" onclick="addv()">إضافة</button></div>
-<div class="card">📁 رفع فيديو من جهازك (للمشاهدة بدون نت)<input type="file" id="lf" accept="video/*"><button class="b" onclick="addf()">إضافة</button></div><div id="pv"></div><div class="card">📧 تسجيل الدخول بجيميل: يُضاف في النسخة التالية.</div></section>
+<div class="card">📁 رفع فيديو من جهازك (للمشاهدة بدون نت)<input type="file" id="lf" accept="video/*"><button class="b" onclick="addf()">إضافة</button></div><div class="card">🧸 اسم كرتون مسموح في البحث<input id="ok" placeholder="مثلاً: عمر وسلمى"><button class="b" onclick="const v=$('#ok').value.trim();if(v){S.ok=(S.ok||[]).concat(v);save();$('#ok').value='';alert('تمت الإضافة')}">إضافة</button></div><div class="card">🔧 فحص الاتصال (المولد والبحث والمايك)<br><button class="b" id="dg" onclick="diag()">🔧 فحص الاتصال</button></div><div id="pv"></div><div class="card">📧 تسجيل الدخول بجيميل: يُضاف في النسخة التالية.</div></section>
 
 <nav id="nav"><button onclick="go('hm')"><i>🏠</i>الرئيسية</button><button onclick="go('vd');vlist()"><i>▶️</i>فيديوهات</button><button onclick="go('ai')"><i>✨</i>اصنع كرتونك</button><button onclick="fav()"><i>❤️</i>المفضلة</button><button onclick="go('mo')"><i>⊞</i>المزيد</button></nav>
 <div id="lock" hidden>⏰ خلص وقت اللعب النهارده!<br>نشوفك بكرة 👋<button class="b" onclick="unlock()">🔒 للكبار</button></div>
@@ -111,14 +111,14 @@ function chk(){$('#lock').hidden=S.used<S.limit}
 setInterval(()=>{if(!document.hidden){S.used++;save();chk()}},60000);chk();
 function unlock(){if(prompt('الرقم السري')===S.pin){S.used=Math.max(0,S.limit-15);save();chk()}}
 function listen(b,cb){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('المتصفح ده مش بيدعم التعرف على الكلام. افتح الموقع من Chrome أو اكتب.');
- const x=new R(),el=$(b),o=el.textContent;x.lang='ar-EG';x.interimResults=true;x.maxAlternatives=1;
- x.onresult=e=>{const t=[...e.results].map(q=>q[0].transcript).join(' ');cb(t,e.results[e.results.length-1].isFinal)};
- x.onerror=e=>{alert({'not-allowed':'الميكروفون ممنوع. اضغط على 🔒 جنب الرابط واسمح للميكروفون.','service-not-allowed':'خدمة الكلام مش متاحة في التطبيق المثبّت. افتح الموقع من Chrome مباشرة.','network':'خدمة التعرف على الكلام محتاجة نت ومش قادرة تتصل (ممكن الشبكة بتحجبها).','no-speech':'مسمعتش صوت. قرّب من الميكروفون وجرّب تاني.','audio-capture':'مفيش ميكروفون شغال في الجهاز.'}[e.error]||'خطأ في الميكروفون: '+e.error)};
- x.onend=()=>el.textContent=o;el.textContent='👂';try{x.start()}catch(e){alert('الميكروفون مشغول، جرّب تاني')}}
+ const x=new R(),el=$(b),o=el.textContent;let got=0,er=0;x.lang='ar-EG';x.interimResults=true;x.maxAlternatives=1;
+ x.onresult=e=>{got=1;const t=[...e.results].map(q=>q[0].transcript).join(' ');cb(t,e.results[e.results.length-1].isFinal)};
+ x.onerror=e=>{er=1;const al=m=>alert(m+'\n\n💡 بديل: استخدم ميكروفون الكيبورد 🎤 في خانة الكتابة');al({'not-allowed':'الميكروفون ممنوع. اضغط على 🔒 جنب الرابط واسمح للميكروفون.','service-not-allowed':'خدمة الكلام مش متاحة في التطبيق المثبّت. افتح الموقع من Chrome مباشرة.','network':'خدمة التعرف على الكلام محتاجة نت ومش قادرة تتصل (ممكن الشبكة بتحجبها).','no-speech':'مسمعتش صوت. قرّب من الميكروفون وجرّب تاني.','audio-capture':'مفيش ميكروفون شغال في الجهاز.'}[e.error]||'خطأ في الميكروفون: '+e.error)};
+ x.onend=()=>{el.textContent=o;if(!got&&!er)alert('الميكروفون اشتغل بس مسمعش كلام. جرّب تاني أو استخدم ميكروفون الكيبورد 🎤')};el.textContent='👂';try{x.start()}catch(e){alert('الميكروفون مشغول، جرّب تاني')}}
 function speak(t){if(!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.9;speechSynthesis.speak(u)}
 /* الرئيسية */
 const TT=['مغامرات نونة','رحلة الديناصورات','باندا الصغير','مغامرات البحار','الأمير الصغير'];
-$('#tr').innerHTML=TT.map((t,i)=>`<div onclick="go('vd');vs('${t}')"><img src="img/t${i}.webp" alt="">${t}</div>`).join('');
+$('#tr').innerHTML=TT.map((t,i)=>`<div onclick="go('vd');vs('${t} كرتون')"><img src="img/t${i}.webp" alt="">${t}</div>`).join('');
 function hq(){const q=$('#hs').value.trim();if(!q)return;go('vd');vs(q)}
 /* فيديوهات */
 const yid=u=>(u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)||[])[1];
@@ -126,11 +126,15 @@ $('#ch').innerHTML=['سبونج بوب','السنافر','توم وجيري','ب
 const vrow=(v,i)=>`<div class="card" onclick="play(${i})">▶️ ${esc(v.t)} ${S.saved.includes(v.u)?'✅':''}</div>`;
 function vlist(){$('#vl').innerHTML=S.vids.length?'<h3>⭐ فيديوهاتي</h3>'+S.vids.map(vrow).join(''):'<div class="card">دوّر على أي كرتون فوق 👆</div>'}
 function fav(d){go('fa');$('#fl').innerHTML=S.vids.map(vrow).join('')||'<div class="card">لسه مفيش مفضلة. دوّر على فيديو واضغط ⭐</div>';$('#dl2').innerHTML=S.vids.map((v,i)=>S.saved.includes(v.u)?vrow(v,i):'').join('')||'<div class="card">مفيش فيديوهات محملة</div>';if(d)$('#dh').scrollIntoView()}
+const nz=t=>t.toLowerCase().replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[\u064B-\u0652]/g,'');
+const CART=['سبونج','سنافر','توم','جيري','ميكي','ميني','دورايمون','بوكيمون','ماشا','بيبا','كوكو ميلون','cocomelon','طيور الجنه','بن 10','ben 10','سبايدرمان','سوبرمان','باتمان','سيمبا','ريمي','كونان','ناروتو','هايدي','عدنان','سندريلا','ملك الاسد','توي ستوري','كرتون','كارتون','انمي','رسوم متحركه','اغاني اطفال','cartoon','anime','peppa','baby shark','بيبي شارك'];
+const okq=q=>{const n=nz(q);return CART.concat(S.ok||[]).some(k=>n.includes(nz(k)))};
 async function vs(q){q=(q||$('#sq').value).trim();if(!q)return;$('#sq').value=q;
  if(BAD.test(q))return $('#vl').innerHTML='<div class="card">🙈 جرّب كلمة تانية</div>';
+ if(!okq(q))return $('#vl').innerHTML='<div class="card">🧸 البحث هنا للكرتون بس! اكتب اسم كرتون (زي سبونج بوب) أو دوس على الأزرار.</div>';
  if(!S.key)return $('#vl').innerHTML='<div class="card">🔑 البحث جوه التطبيق محتاج مفتاح يوتيوب (للكبار).<br><button class=\"b\" onclick=\"parent()\">🔒 إعداد المفتاح</button><br>أو دوّر دلوقتي دلوقتي على يوتيوب مباشرة:<br><a class="b" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(q+' للأطفال')+'">🔍 افتح نتايج يوتيوب</a></div>';
  $('#vl').innerHTML='<div class="card">⏳ بدوّر...</div>';
- try{const j=await(await fetch('https://www.googleapis.com/youtube/v3/search?'+new URLSearchParams({part:'snippet',type:'video',maxResults:16,safeSearch:'strict',videoEmbeddable:'true',q:q+' للأطفال',key:S.key}))).json();if(j.error)throw j.error.message;
+ try{const j=await(await fetch('https://www.googleapis.com/youtube/v3/search?'+new URLSearchParams({part:'snippet',type:'video',maxResults:16,safeSearch:'strict',videoEmbeddable:'true',q:q+' كرتون للأطفال',key:S.key}))).json();if(j.error)throw j.error.message;
   const it=j.items.filter(x=>!BAD.test(x.snippet.title));
   $('#vl').innerHTML=it.length?'<div class="vg">'+it.map(x=>`<div class="vc" onclick="playy('${x.id.videoId}','${esc(dec(x.snippet.title)).replace(/'/g,'')}')"><img src="${x.snippet.thumbnails.medium.url}" alt=""><b>${esc(dec(x.snippet.title))}</b></div>`).join('')+'</div>':'<div class="card">مفيش نتايج</div>'}
  catch(e){$('#vl').innerHTML='<div class="card">⚠️ تعذر البحث: '+esc(e)+'</div>'}}
@@ -225,6 +229,9 @@ function aiw(){const t=$('#wt').value.trim();if(!t)return;if(BAD.test(t))return 
  $('#wo').innerHTML='<div class="sc"><div id="wi" class="im">⏳ بنرسم...</div><p>اضغط مطولاً على الصورة واختار حفظ 💾</p></div>';
  loadImg($('#wi'),'https://image.pollinations.ai/prompt/'+encodeURIComponent('cute colorful cartoon wallpaper for kids, vertical, safe for children, '+t)+'?width=720&height=1280&nologo=true&seed='+(Date.now()%9999),c=>draw(c,r(8),720,1280,fbk(t)))}
 /* أبوي */
+async function diag(){const bt=$('#dg'),o=[],tm=ms=>new Promise((_,j)=>setTimeout(j,ms)),nc=u=>Promise.race([fetch(u,{mode:'no-cors'}),tm(12000)]),T=async(n,f)=>{try{await f();o.push('✅ '+n)}catch(e){o.push('❌ '+n)}};bt.textContent='⏳ بيفحص...';
+ await Promise.all([T('الاتصال بمولد الصور',()=>nc('https://image.pollinations.ai/')),T('تحميل صورة من المولد',()=>Promise.race([new Promise((a,b)=>{const i=new Image();i.onload=a;i.onerror=b;i.src='https://image.pollinations.ai/prompt/cat?width=64&height=64&nologo=true&seed='+Date.now()}),tm(25000)])),T('الاتصال بيوتيوب (البحث)',()=>nc('https://www.googleapis.com/')),T('مشغل يوتيوب',()=>nc('https://www.youtube-nocookie.com/'))]);
+ o.push((window.SpeechRecognition||window.webkitSpeechRecognition)?'✅ المتصفح بيدعم التعرف على الكلام':'❌ المتصفح مش بيدعم التعرف على الكلام');o.push(S.key?'✅ مفتاح يوتيوب محفوظ':'❌ مفيش مفتاح يوتيوب');bt.textContent='🔧 فحص الاتصال';alert(o.join('\n'))}
 function parent(){const p=prompt('🔒 للكبار فقط: اكتب الرقم السري');if(p===S.pin){$('#lim').value=S.limit;$('#ky').value=S.key;pv();go('pa')}else if(p!==null)alert('رقم غلط')}
 function pv(){$('#pv').innerHTML=S.vids.map((v,i)=>`<div class="card">${esc(v.t)} <button class="b" onclick="S.vids.splice(${i},1);save();pv()">🗑️</button></div>`).join('')}
 async function addf(){const f=$('#lf').files[0];if(!f)return alert('اختار فيديو الأول');const u='https://baba.local/'+Date.now()+'-'+encodeURIComponent(f.name);
