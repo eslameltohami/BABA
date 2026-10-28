@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>بابا</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#4b2bb8"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Baba</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#4b2bb8"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Baba"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#3a1fa6 0,#6a3fd8 55%,#8e63ee 100%) fixed #4b2bb8;min-height:100vh;color:#fff;padding:env(safe-area-inset-top) 0 0;overflow-x:hidden}
@@ -36,6 +36,7 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 @keyframes bn{to{transform:translateY(-8px)}}@keyframes wg{50%{transform:translateY(-4px) rotate(-1deg)}}@keyframes pu{50%{transform:scale(1.03)}}@keyframes fl{to{transform:translateY(-120vh) rotate(40deg)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 .im{min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f3f0ff;border-radius:14px}.im canvas,.im img{width:100%;border-radius:14px;display:block}.im small{padding:6px}
+#pbox:fullscreen{background:#000;display:flex}#pbox:fullscreen video,#pbox:fullscreen iframe{width:100%;height:100%;aspect-ratio:auto;border-radius:0}
 [hidden]{display:none!important}
 </style></head><body class="hp">
 <div id="sp" onclick="enter()"><div class="sbg"></div><div class="sw"><img src="img/splash.jpg" alt="بابا"></div></div>
@@ -49,12 +50,12 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <h3>الأكثر مشاهدة</h3><div class="tr" id="tr"></div></section>
 
 <section id="vd" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🎬 فيديوهات</h2></div>
-<div class="sr"><input id="sq" placeholder="دوّر على كرتونك المفضل 🔍" onkeydown="if(event.key=='Enter')vs()"><button class="b" onclick="vs()">🔍</button><button class="b" id="m1" onclick="listen('#m1',t=>{$('#sq').value=t;vs()})">🎤</button></div>
+<div class="sr"><input id="sq" placeholder="دوّر على كرتونك المفضل 🔍" onkeydown="if(event.key=='Enter')vs()"><button class="b" onclick="vs()">🔍</button><button class="b" id="m1" onclick="listen('#m1',(t,f)=>{$('#sq').value=t;if(f)vs()})">🎤</button></div>
 <div class="ch" id="ch"></div><a class="b" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtubekids.com/">🧒 افتح يوتيوب كيدز</a>
 <div id="vl"></div></section>
 
 <section id="pw" class="v" hidden><div class="bar"><button class="b" onclick="go('vd')">⬅️ للنتائج</button><h2>▶️ مشغل بابا</h2></div>
-<div id="pl"><video id="vid" controls playsinline></video><iframe id="yt" allowfullscreen allow="encrypted-media;picture-in-picture;autoplay" hidden></iframe><button id="sv" class="b">⬇️ حفظ للمشاهدة بدون نت</button> <button id="fv" class="b" hidden>⭐ أضفه لفيديوهاتي</button></div>
+<div id="pl"><div id="pbox"><video id="vid" controls playsinline></video><iframe id="yt" allowfullscreen allow="encrypted-media;picture-in-picture;autoplay;fullscreen" hidden></iframe></div><button class="b" onclick="fs()">⛶ شاشة كاملة</button> <button id="sv" class="b">⬇️ حفظ للمشاهدة بدون نت</button> <button id="fv" class="b" hidden>⭐ أضفه لفيديوهاتي</button></div>
 </section>
 <section id="fa" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>⭐ المفضلة</h2></div><div id="fl"></div><h2 id="dh">⬇️ التنزيلات</h2><div id="dl2"></div></section>
 
@@ -73,7 +74,7 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <section id="qz" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🏆 اختبارات</h2></div><div id="qb"></div></section>
 <section id="ak" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🕌 أخلاق ودين</h2></div><div id="ab"></div></section>
 
-<section id="wl" class="v" hidden><div class="bar"><button class="b" onclick="go('mo')">⬅️</button><h2>🖼️ خلفيات</h2></div><p>اضغط على الخلفية لتحميلها</p><div id="wg"></div>
+<section id="wl" class="v" hidden><div class="bar"><button class="b" onclick="go('mo')">⬅️</button><h2>🖼️ خلفيات</h2></div><div class="sr"><input id="gq2" placeholder="دوّر على صورة كرتون أو أنمي في جوجل 🔍" onkeydown="if(event.key=='Enter')gimg()"><button class="b" onclick="gimg()">🔍</button></div><div class="ch"><button class="b" onclick="gimg('سبونج بوب')">سبونج بوب</button><button class="b" onclick="gimg('السنافر')">السنافر</button><button class="b" onclick="gimg('توم وجيري')">توم وجيري</button><button class="b" onclick="gimg('ميكي ماوس')">ميكي ماوس</button><button class="b" onclick="gimg('دورايمون')">دورايمون</button><button class="b" onclick="gimg('بوكيمون')">بوكيمون</button><button class="b" onclick="gimg('ناروتو')">ناروتو</button><button class="b" onclick="gimg('بن 10')">بن 10</button></div><p>أو اختار واحدة من أبطال بابا (اضغط لتحميلها)</p><div id="wg"></div>
 <h3>🪄 اطلب خلفية من خيالك</h3><input id="wt" placeholder="مثلاً: قطة لطيفة في الفضاء"><button class="b" style="background:#ffd166" onclick="aiw()">🎨 اعملها</button><div id="wo"></div></section>
 <section id="mo" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>⊞ المزيد</h2></div><div class="card" onclick="go('wl');wp()">🖼️ خلفيات كرتونية</div><div class="card" onclick="parent()">🔒 الحماية الأبوية</div><div class="card">🐻 بابا — عالم من المرح والتعلم والإبداع لأطفالنا الصغار</div></section>
 
@@ -82,7 +83,7 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <div class="card">🔑 رقم سري جديد<input id="np" inputmode="numeric" maxlength="6"><button class="b" onclick="if($('#np').value.length>=4){S.pin=$('#np').value;save();alert('تم')}">تغيير</button></div>
 <div class="card">📺 مفتاح يوتيوب (لتشغيل البحث)<input id="ky" dir="ltr" placeholder="AIza..."><button class="b" onclick="navigator.clipboard.readText().then(t=>$('#ky').value=t.trim()).catch(()=>alert('الصق المفتاح يدوي'))">📋 لصق</button> <button class="b" onclick="S.key=$('#ky').value.trim();save();alert(S.key.startsWith('AIza')?'تم ✅ جرّب البحث':'تم، بس المفتاح عادة بيبدأ بـ AIza')">حفظ</button><small>مجاني من console.cloud.google.com ← YouTube Data API v3 ← Credentials ← API key</small></div>
 <div class="card">➕ إضافة فيديو (رابط يوتيوب أو mp4)<input id="vt" placeholder="اسم الفيديو"><input id="vu" placeholder="الرابط" dir="ltr"><button class="b" onclick="addv()">إضافة</button></div>
-<div id="pv"></div><div class="card">📧 تسجيل الدخول بجيميل: يُضاف في النسخة التالية.</div></section>
+<div class="card">📁 رفع فيديو من جهازك (للمشاهدة بدون نت)<input type="file" id="lf" accept="video/*"><button class="b" onclick="addf()">إضافة</button></div><div id="pv"></div><div class="card">📧 تسجيل الدخول بجيميل: يُضاف في النسخة التالية.</div></section>
 
 <nav id="nav"><button onclick="go('hm')"><i>🏠</i>الرئيسية</button><button onclick="go('vd');vlist()"><i>▶️</i>فيديوهات</button><button onclick="go('ai')"><i>✨</i>اصنع كرتونك</button><button onclick="fav()"><i>❤️</i>المفضلة</button><button onclick="go('mo')"><i>⊞</i>المزيد</button></nav>
 <div id="lock" hidden>⏰ خلص وقت اللعب النهارده!<br>نشوفك بكرة 👋<button class="b" onclick="unlock()">🔒 للكبار</button></div>
@@ -104,10 +105,16 @@ go('hm');
 function enter(){sessionStorage.in=1;const s=$('#sp');s.style.opacity=0;setTimeout(()=>s.remove(),600)}
 if(sessionStorage.in)$('#sp').remove();
 for(let i=0;i<8;i++){const f=document.createElement('div');f.className='f';f.textContent=['🎈','⭐','🌈','🦋','🐥','🍭','☁️'][i%7];f.style.cssText+=`left:${r(95)}%;animation-duration:${10+r(10)}s;animation-delay:-${r(15)}s`;document.body.append(f)}
+async function fs(){const e=$('#pbox');try{await(e.requestFullscreen||e.webkitRequestFullscreen).call(e);try{await screen.orientation.lock('landscape')}catch(_){}}catch(_){alert('الشاشة الكاملة مش متاحة هنا. استخدم زرار ⛶ اللي جوه مشغل يوتيوب.')}}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)try{screen.orientation.unlock()}catch(_){}});
 function chk(){$('#lock').hidden=S.used<S.limit}
 setInterval(()=>{if(!document.hidden){S.used++;save();chk()}},60000);chk();
 function unlock(){if(prompt('الرقم السري')===S.pin){S.used=Math.max(0,S.limit-15);save();chk()}}
-function listen(b,cb){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('المتصفح ده مش بيدعم الكلام. اكتب.');const x=new R(),el=$(b),o=el.textContent;x.lang='ar-EG';x.onresult=e=>cb(e.results[0][0].transcript);el.textContent='👂';x.onend=()=>el.textContent=o;x.start()}
+function listen(b,cb){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('المتصفح ده مش بيدعم التعرف على الكلام. افتح الموقع من Chrome أو اكتب.');
+ const x=new R(),el=$(b),o=el.textContent;x.lang='ar-EG';x.interimResults=true;x.maxAlternatives=1;
+ x.onresult=e=>{const t=[...e.results].map(q=>q[0].transcript).join(' ');cb(t,e.results[e.results.length-1].isFinal)};
+ x.onerror=e=>{alert({'not-allowed':'الميكروفون ممنوع. اضغط على 🔒 جنب الرابط واسمح للميكروفون.','service-not-allowed':'خدمة الكلام مش متاحة في التطبيق المثبّت. افتح الموقع من Chrome مباشرة.','network':'خدمة التعرف على الكلام محتاجة نت ومش قادرة تتصل (ممكن الشبكة بتحجبها).','no-speech':'مسمعتش صوت. قرّب من الميكروفون وجرّب تاني.','audio-capture':'مفيش ميكروفون شغال في الجهاز.'}[e.error]||'خطأ في الميكروفون: '+e.error)};
+ x.onend=()=>el.textContent=o;el.textContent='👂';try{x.start()}catch(e){alert('الميكروفون مشغول، جرّب تاني')}}
 function speak(t){if(!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.9;speechSynthesis.speak(u)}
 /* الرئيسية */
 const TT=['مغامرات نونة','رحلة الديناصورات','باندا الصغير','مغامرات البحار','الأمير الصغير'];
@@ -127,10 +134,10 @@ async function vs(q){q=(q||$('#sq').value).trim();if(!q)return;$('#sq').value=q;
   const it=j.items.filter(x=>!BAD.test(x.snippet.title));
   $('#vl').innerHTML=it.length?'<div class="vg">'+it.map(x=>`<div class="vc" onclick="playy('${x.id.videoId}','${esc(dec(x.snippet.title)).replace(/'/g,'')}')"><img src="${x.snippet.thumbnails.medium.url}" alt=""><b>${esc(dec(x.snippet.title))}</b></div>`).join('')+'</div>':'<div class="card">مفيش نتايج</div>'}
  catch(e){$('#vl').innerHTML='<div class="card">⚠️ تعذر البحث: '+esc(e)+'</div>'}}
-function playy(id,t){go('pw');const f=$('#yt');$('#pl').hidden=false;$('#vid').pause();$('#vid').hidden=true;$('#sv').hidden=true;f.hidden=false;f.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&autoplay=1';
+function playy(id,t){go('pw');const f=$('#yt');$('#pl').hidden=false;$('#vid').pause();$('#vid').hidden=true;const sv=$('#sv');sv.hidden=false;sv.textContent='⬇️ تحميل للمشاهدة بدون نت';sv.onclick=()=>alert('يوتيوب مابيسمحش بتحميل فيديوهاته خارج تطبيقه. للمشاهدة بدون نت: استخدم تحميل تطبيق YouTube Kids أو YouTube Premium، أو ارفع فيديوهاتك أنت من 🔒 ← رفع فيديو من جهازك.');f.hidden=false;f.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&autoplay=1';
  const fv=$('#fv');fv.hidden=false;fv.textContent='⭐ أضفه لفيديوهاتي';fv.onclick=()=>{S.vids.push({t:t||'فيديو',u:'https://youtu.be/'+id});save();fv.textContent='✅ اتضاف'};$('#pl').scrollIntoView()}
 async function play(i){const v=S.vids[i],m=yid(v.u);if(m)return playy(m,v.t);go('pw');
- const vd=$('#vid'),sv=$('#sv');$('#pl').hidden=false;$('#yt').hidden=true;$('#yt').src='';$('#fv').hidden=true;vd.hidden=false;sv.hidden=false;sv.textContent='⬇️ حفظ للمشاهدة بدون نت';sv.onclick=()=>dl(v.u);
+ const vd=$('#vid'),sv=$('#sv');$('#pl').hidden=false;$('#yt').hidden=true;$('#yt').src='';$('#fv').hidden=true;vd.hidden=false;sv.hidden=v.u.startsWith('https://baba.local/');sv.textContent='⬇️ حفظ للمشاهدة بدون نت';sv.onclick=()=>dl(v.u);
  const c=await caches.match(v.u);vd.src=c?URL.createObjectURL(await c.blob()):v.u;vd.play().catch(()=>{});$('#pl').scrollIntoView()}
 async function dl(u){const sv=$('#sv');sv.textContent='⏳ جاري الحفظ...';try{const x=await fetch(u);if(!x.ok)throw 0;await(await caches.open('vids')).put(u,x);if(!S.saved.includes(u))S.saved.push(u);save();sv.textContent='✅ تم الحفظ'}catch(e){sv.textContent='⚠️ الرابط ده مش بيسمح بالحفظ'}}
 /* ألعاب */
@@ -165,13 +172,15 @@ function svd(){$('#cv').toBlob(bl=>{const a=document.createElement('a');a.href=U
 /* قصص بالذكاء */
 const EM=[['أرنب','🐰'],['قط','🐱'],['كلب','🐶'],['قمر','🌙'],['نجم','⭐'],['شمس','☀️'],['بحر','🌊'],['سمك','🐠'],['فيل','🐘'],['أسد','🦁'],['عصفور','🐦'],['طائر','🐦'],['فضاء','🚀'],['صاروخ','🚀'],['ديناصور','🦖'],['سيارة','🚗'],['طائرة','✈️'],['شجر','🌳'],['زهر','🌸'],['ولد','👦'],['بنت','👧'],['دب','🐻'],['بطة','🦆'],['حصان','🐴'],['قلعة','🏰'],['فراش','🦋'],['نحل','🐝'],['سلحفاة','🐢']];
 function fbk(s){const f=EM.filter(e=>s.includes(e[0])).map(e=>e[1]);return[f[0]||'🌈',[...f.slice(1),'⭐','🌈','☁️','🎈','🌸']]}
-function loadImg(el,url,fb){let done=0;const im=new Image(),f=()=>{if(done)return;done=1;const c=document.createElement('canvas');fb(c);el.innerHTML='';el.append(c);el.insertAdjacentHTML('beforeend','<small>رسمة مؤقتة: مولد الصور مش متاح دلوقتي</small>')};
- const t=setTimeout(f,25000);im.onload=()=>{if(done)return;done=1;clearTimeout(t);el.innerHTML='';el.append(im)};im.onerror=()=>{clearTimeout(t);f()};im.src=url}
-function story(){const t=$('#st').value.trim();if(!t)return;if(BAD.test(t))return $('#so').innerHTML='<div class="card">🙈 جرّب فكرة تانية لطيفة!</div>';
- let p=t.split(/[.!؟?\n،]+/).map(s=>s.trim()).filter(Boolean).slice(0,4);if(p.length<3)p=[t,t+' ومغامرة جميلة',t+' ونهاية سعيدة'];
- window.txt=p.join('. ');const seed=Date.now()%9999;
- $('#so').innerHTML=p.map((s,i)=>`<div class="sc"><div id="im${i}" class="im">⏳ بنرسم...</div><p style="font-size:20px">${esc(s)}</p></div>`).join('');
- p.forEach((s,i)=>loadImg($('#im'+i),'https://image.pollinations.ai/prompt/'+encodeURIComponent('cute colorful children storybook illustration, friendly, safe for kids, '+s)+'?width=512&height=512&nologo=true&seed='+(seed+i),c=>draw(c,i,512,512,fbk(s))));speak(window.txt)}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));let lastGen=0;
+async function loadImg(el,url,fb){for(let n=0;n<2;n++){const w=15500-(Date.now()-lastGen);if(w>0)await sleep(w);lastGen=Date.now();
+  const ok=await new Promise(res=>{const im=new Image(),t=setTimeout(()=>res(0),45000);im.onload=()=>{clearTimeout(t);el.innerHTML='';el.append(im);res(1)};im.onerror=()=>{clearTimeout(t);res(0)};im.src=url+(n?'&r=1':'')});if(ok)return}
+ const c=document.createElement('canvas');fb(c);el.innerHTML='';el.append(c);el.insertAdjacentHTML('beforeend','<small>رسمة مؤقتة: مولد الصور مشغول، جرّب بعد شوية</small>')}
+async function story(){const t=$('#st').value.trim();if(!t)return;if(BAD.test(t))return $('#so').innerHTML='<div class="card">🙈 جرّب فكرة تانية لطيفة!</div>';
+ let p=t.split(/[.!؟?\n،]+/).map(s=>s.trim()).filter(Boolean).slice(0,3);if(p.length<3)p=[t,t+' ومغامرة جميلة',t+' ونهاية سعيدة'];
+ window.txt=p.join('. ');const seed=Date.now()%9999,tk=window.tk=Date.now();
+ $('#so').innerHTML=p.map((s,i)=>`<div class="sc"><div id="im${i}" class="im">⏳ في الانتظار...</div><p style="font-size:20px">${esc(s)}</p></div>`).join('')+'<div class="card">⏱️ كل صورة بتاخد حوالي 15 ثانية</div>';speak(window.txt);
+ for(let i=0;i<p.length;i++){if(window.tk!==tk)return;const e=$('#im'+i);if(!e)return;e.textContent='⏳ بنرسم...';await loadImg(e,'https://image.pollinations.ai/prompt/'+encodeURIComponent('cute colorful children storybook illustration, friendly, safe for kids, '+p[i])+'?width=512&height=512&nologo=true&seed='+(seed+i),c=>draw(c,i,512,512,fbk(p[i])))}}
 /* قصص وكتب */
 const ST=[['الأرنب الشجاع','🐰','كان يا ما كان أرنب صغير اسمه زيزو يخاف من الظلام. في ليلة جميلة أضاءت له النجوم الطريق، فعرف أن الشجاعة تبدأ حين نجرّب. ابتسم زيزو ونام سعيداً.'],['النحلة الكريمة','🐝','نحلة صغيرة اسمها نونو كانت تجمع الرحيق كل يوم وتشاركه مع أصدقائها. تعلمت أن المشاركة تجعل الجميع سعداء، وأن العمل مع الأصدقاء أجمل.'],['القمر والنجمة','🌙','نجمة صغيرة حزنت لأنها أصغر النجوم. قال لها القمر: كل نور صغير يجعل الليل أجمل. فابتسمت النجمة وأضاءت أكثر من أي وقت.'],['السلحفاة الصادقة','🐢','كسرت السلحفاة سلمى إناءً في البيت، وخافت قليلاً، لكنها قالت الحقيقة لأمها. فرحت الأم بصدقها وسامحتها، وتعلمت سلمى أن الصدق جميل.']];
 function stl(){go('sy');$('#sl').innerHTML=ST.map((s,i)=>`<div class="card" onclick="sr(${i})">${s[1]} ${s[0]}</div>`).join('');$('#sr').innerHTML=''}
@@ -194,13 +203,32 @@ function draw(c,i,w,h,em){c.width=w;c.height=h;const x=c.getContext('2d'),t=T[i%
  x.fillStyle='rgba(255,255,255,.75)';[[.22,.1],[.78,.18],[.4,.3]].forEach(([a,b])=>[-1,0,1].forEach(d=>{x.beginPath();x.arc(w*a+d*w*.06,h*b+(d?w*.01:0),w*.065,0,7);x.fill()}));
  x.textAlign='center';x.textBaseline='middle';x.font=w*.17+'px serif';[[.18,.42],[.82,.46],[.14,.74],[.86,.78],[.5,.9]].forEach((p,k)=>x.fillText((em?em[1]:t[2])[k]||'',w*p[0],h*p[1]));
  x.font=w*.5+'px serif';x.fillText(em?em[0]:t[3],w/2,h*.6)}
-function wp(){const g=$('#wg');g.innerHTML='';T.forEach((_,i)=>{const c=document.createElement('canvas');draw(c,i,180,320);c.onclick=()=>{const b=document.createElement('canvas');draw(b,i,1080,1920);b.toBlob(bl=>{const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='baba-'+(i+1)+'.png';a.click()})};g.append(c)})}
+const RR=(x,a,b,w,h,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()};
+const HR=[['#2b1b6b','#ff4d6d','#ffd60a',0],['#ff8c1a','#1d7bf2','#ef476f',1],['#5a3825','#2a9d4a','#ffd60a',0],['#ff4fa3','#8338ec','#ffffff',2],['#222222','#e63946','#1d7bf2',1],['#ffd60a','#06a77d','#8338ec',2],['#3a86ff','#ffbe0b','#e63946',0],['#7b4be8','#ff6fb5','#ffd60a',2]];
+function drawHero(c,i,w,h){draw(c,i,w,h,['',['⭐','☁️','🌈','✨','⭐']]);const x=c.getContext('2d'),u=w/100,cx=w/2,cy=h*.62,hy=cy-16*u,[hair,suit,cape,st]=HR[i%8],F=k=>x.fillStyle=k;
+ F(cape);x.beginPath();x.moveTo(cx-12*u,cy+4*u);x.lineTo(cx+12*u,cy+4*u);x.quadraticCurveTo(cx+34*u,cy+30*u,cx+28*u,cy+46*u);x.quadraticCurveTo(cx,cy+40*u,cx-28*u,cy+46*u);x.quadraticCurveTo(cx-34*u,cy+30*u,cx-12*u,cy+4*u);x.fill();
+ F('#2b2160');RR(x,cx-10*u,cy+30*u,8*u,14*u,3*u);x.fill();RR(x,cx+2*u,cy+30*u,8*u,14*u,3*u);x.fill();
+ F(suit);RR(x,cx-13*u,cy+2*u,26*u,32*u,9*u);x.fill();RR(x,cx-22*u,cy+4*u,9*u,22*u,4*u);x.fill();RR(x,cx+13*u,cy+4*u,9*u,22*u,4*u);x.fill();
+ F('#ffd9b3');[-17.5,17.5].forEach(d=>{x.beginPath();x.arc(cx+d*u,cy+27*u,4.5*u,0,7);x.fill()});
+ x.textAlign='center';x.textBaseline='middle';x.font=11*u+'px serif';x.fillText('⭐',cx,cy+16*u);
+ if(st==2){F(hair);[-24,24].forEach(d=>{x.beginPath();x.arc(cx+d*u,hy+6*u,9*u,0,7);x.fill()})}
+ F('#ffd9b3');x.beginPath();x.arc(cx,hy,20*u,0,7);x.fill();F(hair);
+ if(st==0){x.beginPath();[[-21,-4],[-24,-26],[-14,-20],[-12,-38],[-4,-26],[2,-42],[8,-26],[16,-36],[17,-20],[25,-24],[21,-4],[12,-9],[4,-3],[-4,-10],[-12,-4]].forEach((p,k)=>x[k?'lineTo':'moveTo'](cx+p[0]*u,hy+p[1]*u));x.fill()}
+ else{x.beginPath();x.arc(cx,hy,22*u,Math.PI,0);x.fill();[-13,0,13].forEach(d=>{x.beginPath();x.arc(cx+d*u,hy-8*u,6*u,0,7);x.fill()})}
+ [-1,1].forEach(q=>{const ex=cx+q*8*u,ey=hy+3*u;F('#fff');x.beginPath();x.ellipse(ex,ey,5.5*u,7*u,0,0,7);x.fill();F(['#3a86ff','#2a9d4a','#8b5a2b'][i%3]);x.beginPath();x.ellipse(ex,ey+u,3.8*u,5*u,0,0,7);x.fill();F('#111');x.beginPath();x.arc(ex,ey+u,2*u,0,7);x.fill();F('#fff');x.beginPath();x.arc(ex-1.3*u,ey-1.5*u,1.4*u,0,7);x.fill()});
+ x.globalAlpha=.6;F('#ff7a8a');[-13,13].forEach(d=>{x.beginPath();x.ellipse(cx+d*u,hy+11*u,3.5*u,2*u,0,0,7);x.fill()});x.globalAlpha=1;
+ x.strokeStyle='#a0303a';x.lineWidth=1.3*u;x.lineCap='round';x.beginPath();x.arc(cx,hy+9*u,4*u,.2,Math.PI-.2);x.stroke();
+ x.font='bold '+7*u+'px Tahoma';F('#fff');x.shadowColor='#0007';x.shadowBlur=6;x.fillText('بطل بابا ⭐',cx,h*.91);x.shadowBlur=0}
+function gimg(q){q=(q||$('#gq2').value).trim();if(!q)return;if(BAD.test(q))return alert('جرّب كلمة تانية');window.open('https://www.google.com/search?tbm=isch&safe=active&q='+encodeURIComponent(q+' خلفية'),'_blank','noopener')}
+function wp(){const g=$('#wg');g.innerHTML='';T.forEach((_,i)=>{const c=document.createElement('canvas');drawHero(c,i,180,320);c.onclick=()=>{const b=document.createElement('canvas');drawHero(b,i,1080,1920);b.toBlob(bl=>{const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='baba-'+(i+1)+'.png';a.click()})};g.append(c)})}
 function aiw(){const t=$('#wt').value.trim();if(!t)return;if(BAD.test(t))return $('#wo').innerHTML='<div class="card">🙈 جرّب فكرة تانية</div>';
  $('#wo').innerHTML='<div class="sc"><div id="wi" class="im">⏳ بنرسم...</div><p>اضغط مطولاً على الصورة واختار حفظ 💾</p></div>';
  loadImg($('#wi'),'https://image.pollinations.ai/prompt/'+encodeURIComponent('cute colorful cartoon wallpaper for kids, vertical, safe for children, '+t)+'?width=720&height=1280&nologo=true&seed='+(Date.now()%9999),c=>draw(c,r(8),720,1280,fbk(t)))}
 /* أبوي */
 function parent(){const p=prompt('🔒 للكبار فقط: اكتب الرقم السري');if(p===S.pin){$('#lim').value=S.limit;$('#ky').value=S.key;pv();go('pa')}else if(p!==null)alert('رقم غلط')}
 function pv(){$('#pv').innerHTML=S.vids.map((v,i)=>`<div class="card">${esc(v.t)} <button class="b" onclick="S.vids.splice(${i},1);save();pv()">🗑️</button></div>`).join('')}
+async function addf(){const f=$('#lf').files[0];if(!f)return alert('اختار فيديو الأول');const u='https://baba.local/'+Date.now()+'-'+encodeURIComponent(f.name);
+ try{await(await caches.open('vids')).put(u,new Response(f,{headers:{'Content-Type':f.type||'video/mp4'}}));S.vids.push({t:f.name.replace(/\.[^.]+$/,''),u});S.saved.push(u);save();pv();alert('تمت الإضافة ✅ هتلاقيه في المفضلة')}catch(e){alert('تعذر الحفظ. ممكن المساحة ناقصة.')}}
 function addv(){const t=$('#vt').value.trim(),u=$('#vu').value.trim();if(!t||!/^https?:\/\//.test(u))return alert('اكتب الاسم والرابط');S.vids.push({t,u});save();$('#vt').value=$('#vu').value='';pv()}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
