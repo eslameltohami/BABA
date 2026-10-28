@@ -51,9 +51,11 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <section id="vd" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🎬 فيديوهات</h2></div>
 <div class="sr"><input id="sq" placeholder="دوّر على كرتونك المفضل 🔍" onkeydown="if(event.key=='Enter')vs()"><button class="b" onclick="vs()">🔍</button><button class="b" id="m1" onclick="listen('#m1',t=>{$('#sq').value=t;vs()})">🎤</button></div>
 <div class="ch" id="ch"></div><a class="b" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtubekids.com/">🧒 افتح يوتيوب كيدز</a>
-<div id="pl" hidden><video id="vid" controls playsinline></video><iframe id="yt" allowfullscreen allow="encrypted-media;picture-in-picture;autoplay" hidden></iframe><button id="sv" class="b">⬇️ حفظ للمشاهدة بدون نت</button> <button id="fv" class="b" hidden>⭐ أضفه لفيديوهاتي</button></div>
 <div id="vl"></div></section>
 
+<section id="pw" class="v" hidden><div class="bar"><button class="b" onclick="go('vd')">⬅️ للنتائج</button><h2>▶️ مشغل بابا</h2></div>
+<div id="pl"><video id="vid" controls playsinline></video><iframe id="yt" allowfullscreen allow="encrypted-media;picture-in-picture;autoplay" hidden></iframe><button id="sv" class="b">⬇️ حفظ للمشاهدة بدون نت</button> <button id="fv" class="b" hidden>⭐ أضفه لفيديوهاتي</button></div>
+</section>
 <section id="fa" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>⭐ المفضلة</h2></div><div id="fl"></div><h2 id="dh">⬇️ التنزيلات</h2><div id="dl2"></div></section>
 
 <section id="gs" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🎮 رسومات وألعاب</h2></div>
@@ -78,7 +80,7 @@ textarea,input{width:100%;font:inherit;font-size:18px;padding:12px;border-radius
 <section id="pa" class="v" hidden><div class="bar"><button class="b" onclick="go('hm')">🏠</button><h2>🔒 الحماية الأبوية</h2></div>
 <div class="card">⏱️ الوقت اليومي (دقيقة)<input id="lim" type="number" min="5"><button class="b" onclick="S.limit=+$('#lim').value||60;save();alert('تم')">حفظ</button></div>
 <div class="card">🔑 رقم سري جديد<input id="np" inputmode="numeric" maxlength="6"><button class="b" onclick="if($('#np').value.length>=4){S.pin=$('#np').value;save();alert('تم')}">تغيير</button></div>
-<div class="card">📺 مفتاح يوتيوب (لتشغيل البحث)<input id="ky" dir="ltr" placeholder="AIza..."><button class="b" onclick="S.key=$('#ky').value.trim();save();alert('تم')">حفظ</button><small>مجاني من console.cloud.google.com ← YouTube Data API v3 ← Credentials ← API key</small></div>
+<div class="card">📺 مفتاح يوتيوب (لتشغيل البحث)<input id="ky" dir="ltr" placeholder="AIza..."><button class="b" onclick="navigator.clipboard.readText().then(t=>$('#ky').value=t.trim()).catch(()=>alert('الصق المفتاح يدوي'))">📋 لصق</button> <button class="b" onclick="S.key=$('#ky').value.trim();save();alert(S.key.startsWith('AIza')?'تم ✅ جرّب البحث':'تم، بس المفتاح عادة بيبدأ بـ AIza')">حفظ</button><small>مجاني من console.cloud.google.com ← YouTube Data API v3 ← Credentials ← API key</small></div>
 <div class="card">➕ إضافة فيديو (رابط يوتيوب أو mp4)<input id="vt" placeholder="اسم الفيديو"><input id="vu" placeholder="الرابط" dir="ltr"><button class="b" onclick="addv()">إضافة</button></div>
 <div id="pv"></div><div class="card">📧 تسجيل الدخول بجيميل: يُضاف في النسخة التالية.</div></section>
 
@@ -93,8 +95,9 @@ const D=new Date().toISOString().slice(0,10),r=n=>Math.floor(Math.random()*n);
 let S=Object.assign({pin:'1234',limit:60,day:D,used:0,saved:[],key:'',vids:[]},JSON.parse(localStorage.baba||'{}'));
 if(S.day!==D){S.day=D;S.used=0}
 const save=()=>localStorage.baba=JSON.stringify(S);
+if(/^#k=AIza[\w-]{30,}$/.test(location.hash)){S.key=location.hash.slice(3);save();history.replaceState(null,'',location.pathname);setTimeout(()=>alert('تم تفعيل بحث يوتيوب ✅'),900)}
 const BAD=/قتل|دم|سلاح|مسدس|جنس|عاري|رعب|مخدر|kill|blood|gun|nude|sex|porn/i;
-const CL={vd:'#ef476f',fa:'#ff4f8b',gs:'#f5a300',gm:'#f5a300',dw:'#f5a300',ai:'#3cb54a',sy:'#2f80ed',qz:'#7b4be8',ak:'#14b8c4',wl:'#118ab2',mo:'#7b4be8',pa:'#7b4be8'};
+const CL={vd:'#ef476f',fa:'#ff4f8b',gs:'#f5a300',gm:'#f5a300',dw:'#f5a300',ai:'#3cb54a',sy:'#2f80ed',qz:'#7b4be8',ak:'#14b8c4',wl:'#118ab2',mo:'#7b4be8',pa:'#7b4be8',pw:'#ef476f'};
 function go(id){$$('.v').forEach(e=>e.hidden=e.id!==id);document.body.className=id=='hm'?'hp':'';document.body.style.setProperty('--c',CL[id]||'#7b4be8');$('#vid').pause();$('#yt').src='';$('#pl').hidden=true;speechSynthesis.cancel();scrollTo(0,0)}
 $$('.bar').forEach(b=>b.insertAdjacentHTML('beforeend','<img class="sl" src="img/logo.webp" alt="">'));
 go('hm');
@@ -118,15 +121,15 @@ function vlist(){$('#vl').innerHTML=S.vids.length?'<h3>⭐ فيديوهاتي</h
 function fav(d){go('fa');$('#fl').innerHTML=S.vids.map(vrow).join('')||'<div class="card">لسه مفيش مفضلة. دوّر على فيديو واضغط ⭐</div>';$('#dl2').innerHTML=S.vids.map((v,i)=>S.saved.includes(v.u)?vrow(v,i):'').join('')||'<div class="card">مفيش فيديوهات محملة</div>';if(d)$('#dh').scrollIntoView()}
 async function vs(q){q=(q||$('#sq').value).trim();if(!q)return;$('#sq').value=q;
  if(BAD.test(q))return $('#vl').innerHTML='<div class="card">🙈 جرّب كلمة تانية</div>';
- if(!S.key)return $('#vl').innerHTML='<div class="card">🔑 البحث جوه التطبيق محتاج مفتاح يوتيوب (من 🔒).<br>تقدر تدوّر دلوقتي على يوتيوب مباشرة:<br><a class="b" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(q+' للأطفال')+'">🔍 افتح نتايج يوتيوب</a></div>';
+ if(!S.key)return $('#vl').innerHTML='<div class="card">🔑 البحث جوه التطبيق محتاج مفتاح يوتيوب (للكبار).<br><button class=\"b\" onclick=\"parent()\">🔒 إعداد المفتاح</button><br>أو دوّر دلوقتي دلوقتي على يوتيوب مباشرة:<br><a class="b" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(q+' للأطفال')+'">🔍 افتح نتايج يوتيوب</a></div>';
  $('#vl').innerHTML='<div class="card">⏳ بدوّر...</div>';
  try{const j=await(await fetch('https://www.googleapis.com/youtube/v3/search?'+new URLSearchParams({part:'snippet',type:'video',maxResults:16,safeSearch:'strict',videoEmbeddable:'true',q:q+' للأطفال',key:S.key}))).json();if(j.error)throw j.error.message;
   const it=j.items.filter(x=>!BAD.test(x.snippet.title));
   $('#vl').innerHTML=it.length?'<div class="vg">'+it.map(x=>`<div class="vc" onclick="playy('${x.id.videoId}','${esc(dec(x.snippet.title)).replace(/'/g,'')}')"><img src="${x.snippet.thumbnails.medium.url}" alt=""><b>${esc(dec(x.snippet.title))}</b></div>`).join('')+'</div>':'<div class="card">مفيش نتايج</div>'}
  catch(e){$('#vl').innerHTML='<div class="card">⚠️ تعذر البحث: '+esc(e)+'</div>'}}
-function playy(id,t){if($('#vd').hidden)go('vd');const f=$('#yt');$('#pl').hidden=false;$('#vid').pause();$('#vid').hidden=true;$('#sv').hidden=true;f.hidden=false;f.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&autoplay=1';
+function playy(id,t){go('pw');const f=$('#yt');$('#pl').hidden=false;$('#vid').pause();$('#vid').hidden=true;$('#sv').hidden=true;f.hidden=false;f.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&autoplay=1';
  const fv=$('#fv');fv.hidden=false;fv.textContent='⭐ أضفه لفيديوهاتي';fv.onclick=()=>{S.vids.push({t:t||'فيديو',u:'https://youtu.be/'+id});save();fv.textContent='✅ اتضاف'};$('#pl').scrollIntoView()}
-async function play(i){const v=S.vids[i],m=yid(v.u);if(m)return playy(m,v.t);if($('#vd').hidden)go('vd');
+async function play(i){const v=S.vids[i],m=yid(v.u);if(m)return playy(m,v.t);go('pw');
  const vd=$('#vid'),sv=$('#sv');$('#pl').hidden=false;$('#yt').hidden=true;$('#yt').src='';$('#fv').hidden=true;vd.hidden=false;sv.hidden=false;sv.textContent='⬇️ حفظ للمشاهدة بدون نت';sv.onclick=()=>dl(v.u);
  const c=await caches.match(v.u);vd.src=c?URL.createObjectURL(await c.blob()):v.u;vd.play().catch(()=>{});$('#pl').scrollIntoView()}
 async function dl(u){const sv=$('#sv');sv.textContent='⏳ جاري الحفظ...';try{const x=await fetch(u);if(!x.ok)throw 0;await(await caches.open('vids')).put(u,x);if(!S.saved.includes(u))S.saved.push(u);save();sv.textContent='✅ تم الحفظ'}catch(e){sv.textContent='⚠️ الرابط ده مش بيسمح بالحفظ'}}
